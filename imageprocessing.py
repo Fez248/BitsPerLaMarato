@@ -1,17 +1,16 @@
 
-'''
-Given an image and its overlay, it 
 
-'''
 CATEGORIES = ["light", "moderate", "saturated"]
 
 def count_bloody_pixels(image, overlay) -> int:
     '''Returns the number of bloody pixels inside the overlay'''
     pass
 
+
 def count_pixels_overlay(overlay) -> int:
     '''Returns the total number of pixels inside the overlay'''
     pass
+
 
 def get_category(image, overlay) -> str:
     '''Given an image of a pad/tampon and its overlay, it returns
