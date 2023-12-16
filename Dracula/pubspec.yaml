@@ -29,9 +29,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies: #maybe no son las más actuaizadas o maybe si run $flutter pub get
   firebase_core: 2.24.2
-  firebase_auth: 4.15.3 #authentication
+  firebase_auth: ^4.15.3 #authentication
   cloud_firestore: 4.13.6 #firestore database
-  google_sign_in: 6.2.1
+  google_sign_in: ^6.2.1
   firebase_storage: 11.5.6 #firebase storage
   flutter:
     sdk: flutter
@@ -50,7 +50,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
