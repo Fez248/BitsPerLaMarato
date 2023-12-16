@@ -3,52 +3,52 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '/firebase-connections/firebaseConnection.dart';
 
-class loginSignUp extends StatefulWidget {
-    const loginSignUp({super.key, required this.title}); //constructora
+// class loginSignUp extends StatefulWidget {
+//     const loginSignUp({super.key, required this.title}); //constructora
 
-    final String title; //titulo de la ventana
+//     final String title; //titulo de la ventana
 
-    @override
-    State<loginSignUp> createState() => _loginSignUp();
-}
+//     @override
+//     State<loginSignUp> createState() => _loginSignUp();
+// }
 
-class _loginSignUp extends State<loginSignUp> {
-    //aquí van variables que necesite y funciones auxiliares
-    void goToHome()
-    {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MyHomePage(title: "prueba")),
-        );
-    }
+// class _loginSignUp extends State<loginSignUp> {
+//     //aquí van variables que necesite y funciones auxiliares
+//     void goToHome()
+//     {
+//         Navigator.push(
+//             context,
+//             MaterialPageRoute(builder: (context) => const MyHomePage(title: "prueba")),
+//         );
+//     }
 
-    @override
-    Widget build (BuildContext context)
-    {
-        return Scaffold(
-            body: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget> [
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: FloatingActionButton.extended(
-                                        //const SizedBox(width: 16),
-                                        onPressed: goToHome,
-                                        label: const Text("Continuar"),    
-                                    )
-                                )
-                            ],
-                        )
-                    ]
-                )
-            )
-        );
-    }
-}
+//     @override
+//     Widget build (BuildContext context)
+//     {
+//         return Scaffold(
+//             body: Center(
+//                 child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.end,
+//                     children: <Widget>[
+//                         Row(
+//                             mainAxisAlignment: MainAxisAlignment.end,
+//                             children: <Widget> [
+//                                 Padding(
+//                                     padding: const EdgeInsets.all(8.0),
+//                                     child: FloatingActionButton.extended(
+//                                         //const SizedBox(width: 16),
+//                                         onPressed: goToHome,
+//                                         label: const Text("Continuar"),    
+//                                     )
+//                                 )
+//                             ],
+//                         )
+//                     ]
+//                 )
+//             )
+//         );
+//     }
+// }
 
 //---------------SIGN IN GOOGLE--------------------
 
