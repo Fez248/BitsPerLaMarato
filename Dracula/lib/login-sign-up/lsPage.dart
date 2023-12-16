@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '/firebase-connections/firebaseConnection.dart';
 
 class loginSignUp extends StatefulWidget {
     const loginSignUp({super.key, required this.title}); //constructora
@@ -17,7 +18,7 @@ class _loginSignUp extends State<loginSignUp> {
     {
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyHomePage(title: "prueba")),
+            MaterialPageRoute(builder: (context) => const MyHomePage(title: "prueba")),
         );
     }
 
@@ -33,11 +34,11 @@ class _loginSignUp extends State<loginSignUp> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget> [
                                 Padding(
-                                    padding: EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: FloatingActionButton.extended(
                                         //const SizedBox(width: 16),
                                         onPressed: goToHome,
-                                        label: Text("Continuar"),    
+                                        label: const Text("Continuar"),    
                                     )
                                 )
                             ],
