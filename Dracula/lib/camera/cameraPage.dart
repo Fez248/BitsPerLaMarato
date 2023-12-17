@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart'; // Importa el paquete de la cámara
 import 'dart:io';
 import 'package:cloud_functions/cloud_functions.dart';
+import '../../functions/main.py';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -112,11 +113,13 @@ class DisplayPictureScreen extends StatelessWidget {
 
   Future<void> _processImage(String imageUrl) async//sirve para llamar al script de python
   {
-    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('main.py');
+    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('get_points');
 
     try {
         final HttpsCallableResult result = await callable.call({
             imageUrl: imagePath, //se le puede pasar informacion extra como el tamaño del overlay
+            width: screenSize.width * 0.5,
+            height: screenSize.height * 0.5,
         });
         print('Resultado de la Cloud Function: ${result.data}');
     } catch (e) {
