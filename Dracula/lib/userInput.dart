@@ -77,6 +77,7 @@ Future<void> _updateUserProfile() async {
           'name': user.displayName,
           'age': age,
           'height': height,
+          'profileImage': ''
         });
 
         print('User profile document created and updated successfully!');
