@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import '/firebase-connections/firebaseConnection.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test2/userInput.dart';
+import 'package:test2/landingPade.dart';
+import 'package:camera/camera.dart';
 // class loginSignUp extends StatefulWidget {
 //     const loginSignUp({super.key, required this.title}); //constructora
 
@@ -17,7 +21,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 //     {
 //         Navigator.push(
 //             context,
-//             MaterialPageRoute(builder: (context) => MyHomePage(title: "prueba")),
+//             MaterialPageRoute(builder: (context) => const MyHomePage(title: "prueba")),
 //         );
 //     }
 
@@ -33,11 +37,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 //                             mainAxisAlignment: MainAxisAlignment.end,
 //                             children: <Widget> [
 //                                 Padding(
-//                                     padding: EdgeInsets.all(8.0),
+//                                     padding: const EdgeInsets.all(8.0),
 //                                     child: FloatingActionButton.extended(
 //                                         //const SizedBox(width: 16),
 //                                         onPressed: goToHome,
-//                                         label: Text("Continuar"),    
+//                                         label: const Text("Continuar"),    
 //                                     )
 //                                 )
 //                             ],
@@ -51,6 +55,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 //---------------SIGN IN GOOGLE--------------------
 
+
 class SignInDemo extends StatefulWidget {
   @override
   State createState() => SignInDemoState();
@@ -60,7 +65,9 @@ class SignInDemoState extends State<SignInDemo> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<UserCredential?> _handleSignIn() async {
+  Future<void> _handleSignIn(BuildContext context) async {
+    final cameras = await availableCameras();
+    
     try {
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -74,12 +81,29 @@ class SignInDemoState extends State<SignInDemo> {
       final UserCredential authResult = await _auth.signInWithCredential(credential);
       final User? user = authResult.user;
 
-      print("Signed in with Google: ${user!.displayName}");
+      print("Signed in with Google: ${user!.displayName}, ${user.uid}");
 
-      return authResult;
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      DocumentReference userDoc = users.doc(user.uid);
+      var userDocument = await userDoc.get();
+
+      if (userDocument.exists) {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserProfileWelcome(user: user, cameras: [cameras.first]),
+        ),
+        );
+      }
+      else {
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UserProfileForm()),
+      );
+      }
+
     } catch (error) {
       print("Error signing in with Google: $error");
-      return null;
     }
   }
 
@@ -92,7 +116,7 @@ class SignInDemoState extends State<SignInDemo> {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            await _handleSignIn();
+            await _handleSignIn(context);
           },
           child: Text('Sign in with Google'),
         ),

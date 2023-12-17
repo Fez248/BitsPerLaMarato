@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import '/login-sign-up/lsPage.dart';
-import '/camera/cameraPage.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:io';
-import 'package:camera/camera.dart'; // Importa el paquete de la cámara
-
+import 'package:camera/camera.dart';
+import 'cameraControl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +16,13 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final List<CameraDescription> cameras;
-
   const MyApp({super.key, required this.cameras});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -45,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TakePictureScreen(camera: cameras.first),
+      home: SignInDemo(),
       //home: const loginSignUp(title: 'Login or Sign Up'),
     );
   }
