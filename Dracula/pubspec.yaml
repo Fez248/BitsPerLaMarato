@@ -33,6 +33,7 @@ dependencies: #maybe no son las más actuaizadas o maybe si run $flutter pub get
   cloud_firestore: 4.13.6 #firestore database
   google_sign_in: ^6.2.1
   firebase_storage: 11.5.6 #firebase storage
+  cloud_functions: ^4.5.8
   flutter:
     sdk: flutter
 
