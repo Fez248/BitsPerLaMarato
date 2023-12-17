@@ -70,12 +70,12 @@ def get_category(request_data) -> str:
     ratio =  bloody_pixels / total_pixels
 
     if 0 <= ratio <= 0.33:
-        return CATEGORIES[0]
+        return 1
     
     elif 0.33 < ratio <= 0.66:
-        return CATEGORIES[1]
+        return 5
     
     else:
-        return CATEGORIES[2]
+        return 20
     
     
