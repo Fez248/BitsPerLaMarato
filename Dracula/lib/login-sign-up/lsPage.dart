@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '/firebase-connections/firebaseConnection.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test2/userInput.dart';
+import 'package:test2/landingPade.dart';
 
 // class loginSignUp extends StatefulWidget {
 //     const loginSignUp({super.key, required this.title}); //constructora
@@ -79,11 +81,25 @@ class SignInDemoState extends State<SignInDemo> {
 
       print("Signed in with Google: ${user!.displayName}, ${user.uid}");
 
-      // Navigate to user profile form after successful sign-in
-      Navigator.push(
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      DocumentReference userDoc = users.doc(user.uid);
+      var userDocument = await userDoc.get();
+
+      if (userDocument.exists) {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserProfileWelcome(user: user),
+        ),
+        );
+      }
+      else {
+        Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => UserProfileForm()),
       );
+      }
+
     } catch (error) {
       print("Error signing in with Google: $error");
     }
@@ -101,31 +117,6 @@ class SignInDemoState extends State<SignInDemo> {
             await _handleSignIn(context);
           },
           child: Text('Sign in with Google'),
-        ),
-      ),
-    );
-  }
-}
-
-class UserProfileWelcome extends StatelessWidget {
-  final User user;
-
-  const UserProfileWelcome({Key? key, required this.user}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile Form'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Welcome, ${user.displayName}!'),
-            // Add the UserProfileForm widget here or any other widgets for age and height input
-            UserProfileForm(),
-          ],
         ),
       ),
     );
