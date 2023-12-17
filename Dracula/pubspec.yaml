@@ -42,6 +42,7 @@ dependencies: #maybe no son las más actuaizadas o maybe si run $flutter pub get
   cupertino_icons: ^1.0.2
   camera: ^0.10.5+7
   firebase_app_check: 0.2.1+8
+  syncfusion_flutter_calendar: ^23.2.7
 
 dev_dependencies:
   flutter_test:
