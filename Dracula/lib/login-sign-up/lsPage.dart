@@ -5,7 +5,7 @@ import '/firebase-connections/firebaseConnection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test2/userInput.dart';
 import 'package:test2/landingPade.dart';
-
+import 'package:camera/camera.dart';
 // class loginSignUp extends StatefulWidget {
 //     const loginSignUp({super.key, required this.title}); //constructora
 
@@ -66,6 +66,8 @@ class SignInDemoState extends State<SignInDemo> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<void> _handleSignIn(BuildContext context) async {
+    final cameras = await availableCameras();
+    
     try {
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -89,7 +91,7 @@ class SignInDemoState extends State<SignInDemo> {
         Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => UserProfileWelcome(user: user),
+          builder: (context) => UserProfileWelcome(user: user, cameras: [cameras.first]),
         ),
         );
       }

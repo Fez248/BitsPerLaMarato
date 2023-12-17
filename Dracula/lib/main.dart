@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import '/login-sign-up/lsPage.dart';
 import 'firebase_options.dart';
-import 'userInput.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:camera/camera.dart';
+import 'cameraControl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); 
-  runApp(const MyApp());
+  final cameras = await availableCameras();
+  runApp(MyApp(cameras: cameras));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final List<CameraDescription> cameras;
+  const MyApp({super.key, required this.cameras});
 
   // This widget is the root of your application.
   @override

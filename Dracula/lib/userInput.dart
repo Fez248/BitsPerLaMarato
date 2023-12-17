@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'landingPade.dart';
+import 'cameraControl.dart';
+import 'package:camera/camera.dart';
 
 class UserProfileForm extends StatefulWidget {
   @override
@@ -47,6 +49,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
 Future<void> _updateUserProfile() async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
+    final cameras = await availableCameras();
 
     if (user != null) {
       CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -81,7 +84,7 @@ Future<void> _updateUserProfile() async {
         Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => UserProfileWelcome(user: user),
+          builder: (context) => UserProfileWelcome(user: user, cameras: [cameras.first]),
         ),
       );
       }
