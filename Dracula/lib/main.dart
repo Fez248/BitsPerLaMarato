@@ -4,6 +4,7 @@ import '/camera/cameraPage.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:io';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:camera/camera.dart'; // Importa el paquete de la cámara
 
 
@@ -12,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); 
+  await FirebaseAppCheck.instance.activate();
   final cameras = await availableCameras();
   runApp(MyApp(cameras: cameras));
 }

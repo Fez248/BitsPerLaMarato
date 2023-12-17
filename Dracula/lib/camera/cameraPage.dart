@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart'; // Importa el paquete de la cámara
 import 'dart:io';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -109,6 +110,20 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
+  Future<void> _processImage(String imageUrl) async//sirve para llamar al script de python
+  {
+    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('main.py');
+
+    try {
+        final HttpsCallableResult result = await callable.call({
+            imageUrl: imagePath, //se le puede pasar informacion extra como el tamaño del overlay
+        });
+        print('Resultado de la Cloud Function: ${result.data}');
+    } catch (e) {
+        print('Error al invocar la Cloud Function: $e');
+    }
+  }
+
   const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
 
@@ -116,7 +131,15 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Foto')),
-      body: Image.file(File(imagePath)),
+      body: Column(
+        children: [
+          Image.file(File(imagePath)),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _processImage(imagePath),
+        child: Icon(Icons.save),
+      ),
     );
   }
 }
