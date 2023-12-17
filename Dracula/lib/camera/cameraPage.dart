@@ -37,21 +37,45 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Take a Picture'),
+        title: Text('Foto de la compresaS'),
       ),
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // Si la inicialización está completa, muestra la vista previa de la cámara
-            return CameraPreview(_controller);
-          } else {
-            // Muestra un indicador de carga mientras espera la inicialización
-            return Center(child: CircularProgressIndicator());
-          }
-        },
+      body: Stack(
+        children: <Widget> [
+            FutureBuilder<void>(
+                future: _initializeControllerFuture,
+                builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                        // Si la inicialización está completa, muestra la vista previa de la cámara
+                        return CameraPreview(_controller);
+                    } else {
+                        // Muestra un indicador de carga mientras espera la inicialización
+                        return Center(child: CircularProgressIndicator());
+                    }
+                },
+            ),
+            Positioned.fill(
+                child: Center(
+                    child: Container(
+                        width: screenSize.width * 0.5,
+                        height: screenSize.height * 0.5,
+                        margin: EdgeInsets.all(10.0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: Colors.white,
+                                width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
+                    )
+                )
+            )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera),
@@ -91,7 +115,7 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
+      appBar: AppBar(title: Text('Foto')),
       body: Image.file(File(imagePath)),
     );
   }
