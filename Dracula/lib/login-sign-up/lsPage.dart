@@ -21,7 +21,9 @@ import 'package:test2/landingPade.dart';
 //     {
 //         Navigator.push(
 //             context,
+
 //             MaterialPageRoute(builder: (context) => const MyHomePage(title: "prueba")),
+
 //         );
 //     }
 
@@ -37,11 +39,13 @@ import 'package:test2/landingPade.dart';
 //                             mainAxisAlignment: MainAxisAlignment.end,
 //                             children: <Widget> [
 //                                 Padding(
+
 //                                     padding: const EdgeInsets.all(8.0),
 //                                     child: FloatingActionButton.extended(
 //                                         //const SizedBox(width: 16),
 //                                         onPressed: goToHome,
 //                                         label: const Text("Continuar"),    
+
 //                                     )
 //                                 )
 //                             ],
