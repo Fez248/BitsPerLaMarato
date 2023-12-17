@@ -37,7 +37,7 @@ HIGHER_HSV2 = (179, 255, 255)
 
 
 
-def get_category(request_data) -> str:
+def get_points(request_data) -> str:
     '''Given an image of a pad/tampon and its overlay, it returns
     the category of the bleeding'''
     image_path = request_data.get('image_path')
