@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'landingPade.dart';
 
 class UserProfileForm extends StatefulWidget {
   @override
@@ -71,19 +70,11 @@ Future<void> _updateUserProfile() async {
       } else {
         // Create a new document with the UID and set the data
         await userDoc.set({
-          'name': user.displayName,
           'age': age,
           'height': height,
         });
 
         print('User profile document created and updated successfully!');
-
-        Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => UserProfileWelcome(user: user),
-        ),
-      );
       }
     } else {
       print('No authenticated user found.');
