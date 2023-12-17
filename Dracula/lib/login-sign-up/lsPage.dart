@@ -111,7 +111,7 @@ class SignInDemoState extends State<SignInDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Sign-In Demo'),
+        title: Text('Google Sign-In'),
       ),
       body: Center(
         child: ElevatedButton(
