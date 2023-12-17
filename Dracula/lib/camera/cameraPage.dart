@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart'; // Importa el paquete de la cámara
 import 'dart:io';
 import 'package:cloud_functions/cloud_functions.dart';
-import '../../functions/main.py';
+
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
