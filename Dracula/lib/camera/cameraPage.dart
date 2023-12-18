@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart'; // Importa el paquete de la cámara
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'package:cloud_functions/cloud_functions.dart';
 
@@ -113,15 +114,24 @@ class DisplayPictureScreen extends StatelessWidget {
 
   Future<void> _processImage(String imageUrl) async//sirve para llamar al script de python
   {
-    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('get_points');
+    final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('on_request_example');
 
     try {
-        final HttpsCallableResult result = await callable.call({
-            imageUrl: imagePath, //se le puede pasar informacion extra como el tamaño del overlay
-            width: screenSize.width * 0.5,
-            height: screenSize.height * 0.5,
-        });
-        print('Resultado de la Cloud Function: ${result.data}');
+        FirebaseAuth auth = FirebaseAuth.instance;
+        User? user = auth.currentUser;
+
+        if (user != null)
+        { 
+          String? token = await user.getIdToken();
+          final HttpsCallableResult result = await callable.call(<String, dynamic>{'Authorization': 'Bearer $token'});
+          // final HttpsCallableResult result = await callable.call({
+          //     imageUrl: imagePath, //se le puede pasar informacion extra como el tamaño del overlay
+          //     //width: screenSize.width * 0.5,
+          //     //height: screenSize.height * 0.5,
+          // }, <String, dynamic> {'Authorization': 'Bearer $token'});
+          print('Resultado de la Cloud Function: ${result.data}');
+        }
+
     } catch (e) {
         print('Error al invocar la Cloud Function: $e');
     }

@@ -3,6 +3,7 @@
     {
       "source": "functions",
       "codebase": "default",
+      "alow_unauthenticated": true,
       "ignore": [
         "venv",
         ".git",

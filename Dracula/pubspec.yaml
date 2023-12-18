@@ -45,6 +45,7 @@ dependencies: #maybe no son las más actuaizadas o maybe si run $flutter pub get
   camera: ^0.10.5+7
   path_provider: ^2.1.1
   path: ^1.8.3
+  http: ^1.1.2
 
 dev_dependencies:
   flutter_test:
