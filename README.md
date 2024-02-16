@@ -1,9 +1,8 @@
 # BitsPerLaMarato
 
-HemoTrack
-Mobile application used to track periods of women and identify excessive bleeding.
+HemoTrack Mobile application used to track periods of women and identify excessive bleeding. 
 Features:
-  - Computer vision to recognise quantities of blood bleeded on a tampax
+  - Computer vision to recognize quantities of blood bled on a Tampax
   - User friendly medical tests to quantify the severity of a period
-  - Database of photos and medical tests, avalaible to the user of all her periods, used to help medical diagnosis
+  - Database of photos and medical tests, available to the user of all her periods, used to help medical diagnosis
     
